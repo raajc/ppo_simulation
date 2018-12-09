@@ -19,8 +19,8 @@ class Policy_net:
 
             with tf.variable_scope('policy_net'):
                 layer_1 = tf.layers.dense(inputs=self.obs, units=20, activation=tf.tanh)
-                layer_2 = tf.layers.dense(inputs=layer_1, units=20, activation=tf.tanh)
-                layer_3 = tf.layers.dense(inputs=layer_2, units=act_space.n, activation=tf.tanh)
+                # layer_2 = tf.layers.dense(inputs=layer_1, units=20, activation=tf.tanh)
+                layer_3 = tf.layers.dense(inputs=layer_1, units=act_space.n, activation=tf.tanh)
                 self.act_probs = tf.layers.dense(inputs=tf.divide(layer_3, temp), units=act_space.n, activation=tf.nn.softmax)
 
             with tf.variable_scope('value_net'):

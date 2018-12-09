@@ -21,7 +21,7 @@ def main():
     Old_Policy = Policy_net('old_policy', env)
     PPO = PPOTrain(Policy, Old_Policy, gamma=GAMMA)
     saver = tf.train.Saver()
-    name = 'Model_Noise'
+    name = 'Second_layer_gone'
     filename = "data/{n}_{ts:%H_%M_%S}.csv".format(n=name, ts=datetime.now())
     with open(filename, "w", 1) as result:
         result.write("Iteration, Reward \n")
@@ -40,8 +40,6 @@ def main():
                 rewards = []
                 run_policy_steps = 0
                 while True:  # run policy RUN_POLICY_STEPS which is much less than episode length
-                    if iteration % 500 == 0:
-                        env.render()
                     run_policy_steps += 1
                     obs = np.stack([obs]).astype(dtype=np.float32)  # prepare to feed placeholder Policy.obs
                     act, v_pred = Policy.act(obs=obs, stochastic=True)
@@ -112,8 +110,7 @@ def main():
 
                 writer.add_summary(summary, iteration)
             writer.close()
-            if iteration % 500 == 0:
-                env.close()
+
 
 
 
